@@ -30,6 +30,6 @@ public class Main {
             TInterval tInterval = new TInterval(sampleSize, sampleMean, sampleSD, cLevel);
             System.out.println("We are " + (cLevel * 100) + "% confident that the true proportion lies in the interval " + Arrays.toString(tInterval.getInterval()) + ".");
         }
-
+        s.close();
     }
 }
