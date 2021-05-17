@@ -18,8 +18,16 @@ public class Main {
             System.out.println("We are " + (pInterval.getConfLevel() * 100) + "% confident that the true proportion lies in the interval " + Arrays.toString(pInterval.getInterval()) + ".");
         }
         else if (intervalType == 't') {
-            TInterval tInterval = getTData();
-            System.out.println("We are " + (tInterval.getConfLevel() * 100) + "% confident that the true proportion lies in the interval " + Arrays.toString(tInterval.getInterval()) + ".");
+            int dataType = 0;
+            while (!(dataType == 1) && !(dataType == 2)) {
+                System.out.println("Would you like to enter a collection of sample data values or just the sample mean/standard deviation? Enter 1 for data values or 2 for sample mean/SD.");
+                dataType = s.nextInt();
+                if (!(dataType == 1) && !(dataType == 2)) {
+                    System.out.println("Only enter either 1 or 2.");
+                }
+            }
+            TInterval tInterval = getTData(dataType);
+            System.out.println("We are " + (tInterval.getConfLevel() * 100) + "% confident that the true mean lies in the interval " + Arrays.toString(tInterval.getInterval()) + ".");
         }
         s.close();
     }
@@ -35,15 +43,7 @@ public class Main {
         return pInterval;
     }
 
-    public static TInterval getTData() {
-        int dataType = 0;
-        while (!(dataType == 1) && !(dataType == 2)) {
-            System.out.println("Would you like to enter a collection of sample data values or just the sample mean/standard deviation? Enter 1 for data values or 2 for sample mean/SD.");
-            dataType = s.nextInt();
-            if (!(dataType == 1) && !(dataType == 2)) {
-                System.out.println("Only enter either 1 or 2.");
-            }
-        }
+    public static TInterval getTData(int dataType) {
         if (dataType == 1) {
             System.out.println("How many data values do you have, or what is your sample size? (a whole number).");
             int sampleSize = s.nextInt();
@@ -62,7 +62,7 @@ public class Main {
             }
             double sampleSD = Math.sqrt(sumDiffs / (double)(sampleSize - 1));
             System.out.println("Your sample mean is " + sampleMean + " and your sample standard deviation is " + sampleSD + " (using n - 1).");
-            System.out.println("\nEnter your confidence level (a decimal between 0 and 1).");
+            System.out.println("Enter your confidence level (a decimal between 0 and 1).");
             double cLevel = s.nextDouble();
             TInterval tInterval = new TInterval(sampleSize, sampleMean, sampleSD, cLevel);
             return tInterval;
