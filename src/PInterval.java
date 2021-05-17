@@ -29,5 +29,9 @@ public class PInterval {
     public double zstar(double confLevel) {
         return dist.inverseCumulativeProbability(0.5 + (confLevel / 2));
     }
+
+    public double getConfLevel() {
+        return this.cLevel;
+    }
 }
 
